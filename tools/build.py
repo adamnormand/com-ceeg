@@ -114,7 +114,7 @@ def hero(title, sub="", image=""):
 PROG_BANNER = {"pex":"2026/08/20241121_111507.jpg","festif":"2024/04/20231104_205707-min-scaled.jpg",
  "cantine":"2024/04/20231103_150215-min-scaled.jpg","boutique":"2024/04/20231103_145936-min-scaled.jpg",
  "pef":"2026/08/20241119_134500.jpg","pdp":"2024/04/20231104_081107-min-scaled.jpg",
- "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"2024/04/IMG_2756.jpg"}  # clq = group photo at the official ACEE backdrop
+ "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"assets/img/clq-2026-acee.jpg"}  # CLQ 2026, official ACEE backdrop
 
 POSTS_BY = {p[0]: p for p in POSTS}
 
@@ -171,7 +171,7 @@ def build():
  </svg>
  <h1>Club<br>Entrepreneur<br>Étudiant<span>Gaspé</span></h1>
  <div class="acee"><p><span>Fier membre du réseau de</span><br>l’Association des clubs<br>d’entrepreneurs étudiants<br>du Québec</p><img src="assets/img/acee-badge.png" alt="ACEE" width="96" height="96"></div>
- <img class="hero-photo" src="assets/img/hero-etudiants.jpg" alt="Membres du Club Entrepreneur Étudiant Gaspé au colloque de l’ACEE" width="1400" height="933">
+ <img class="hero-photo" src="assets/img/hero-etudiants.jpg" alt="Délégation du Club Entrepreneur Étudiant Gaspé au colloque de l’ACEE 2026" width="1367" height="911">
 </div></section>
 <div class="tagline"><div class="wrap">Nous entreprenons pour le futur de la Gaspésie !</div></div>
 {nxt_html}
@@ -228,7 +228,7 @@ def build():
     years = {}
     for e in past: years.setdefault(e[1][:4], []).append(e)
     pastb = "".join(f'<h3 class="year">{y}</h3><div class="events">{"".join(ev_row(e) for e in es)}</div>' for y, es in sorted(years.items(), reverse=True))
-    body = hero("Événements", "Partys, ateliers, colloques et activités de financement organisés par le Club.", "2024/04/20231103_190855-min-scaled.jpg") + f'''
+    body = hero("Événements", "Partys, ateliers, colloques et activités de financement organisés par le Club.", "assets/img/clq-2026-gala.jpg") + f'''
 <section><div class="wrap"><h2>À venir</h2><div class="events">{up}</div></div></section>
 <section class="alt"><div class="wrap"><h2>Archives</h2>{pastb}</div></section>'''
     page("evenements/", "Événements", body, active="evenements/")
