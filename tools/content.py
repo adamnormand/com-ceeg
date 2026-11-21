@@ -9,7 +9,7 @@ SOCIAL = {
 }
 LOGO = "2024/04/20240426_094536.png"
 # Top bar network menu (formerly "Réseau EntreprendreX", now CEEGIM)
-NETWORK = [("Club Entrepreneur Étudiant Gaspé", "/"), ("Friprix étudiant Gaspé", "https://friprix.ceegim.com/")]
+NETWORK = [("Club Entrepreneur Étudiant Gaspé", "/")]
 
 FOOTER_TEXT = ("Le Club Entrepreneur Étudiant de Gaspé est un organisme à but non lucratif "
                "qui opère des programmes favorisant l’entrepreneuriat sur le territoire de la MRC de la Côte-de-Gaspé.")
