@@ -14,7 +14,7 @@ MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","sept
 def img(path):
     """Register an upload and return its site-root-relative local path."""
     if not path: return ""
-    if path.startswith("http"): return path
+    if path.startswith("http") or path.startswith("assets/"): return path
     ym = "-".join(path.split("/")[:2])
     local = "assets/img/" + ym + "-" + path.split("/")[-1]
     MANIFEST[SRC + path] = local
@@ -114,7 +114,7 @@ def hero(title, sub="", image=""):
 PROG_BANNER = {"pex":"2026/08/20241121_111507.jpg","festif":"2024/04/20231104_205707-min-scaled.jpg",
  "cantine":"2024/04/20231103_150215-min-scaled.jpg","boutique":"2024/04/20231103_145936-min-scaled.jpg",
  "pef":"2026/08/20241119_134500.jpg","pdp":"2024/04/20231104_081107-min-scaled.jpg",
- "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"2024/04/IMG_2760.jpg"}
+ "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"assets/img/clq-2026-groupe.jpg"}  # clq = CLQ 2026 group photo
 
 POSTS_BY = {p[0]: p for p in POSTS}
 
