@@ -23,7 +23,7 @@ PROGRAMMES = [
  dict(slug="pex", title="Entreprendre X", card="2026/08/yes1.jpg",
   intro="Bienvenue dans le Programme Entreprendre X, une plateforme dynamique conçue pour catalyser l'esprit d'entreprise et l'innovation au sein de notre communauté. Notre programme offre aux membres une passerelle vers la concrétisation de leurs idées les plus audacieuses, que ce soit pour lancer des projets novateurs, des entreprises prometteuses ou des initiatives à impact social.",
   services_h="Découvrez nos projets!",
-  services=["Le projet <a href=\"https://friprix.ceegim.com/\">FriPrix</a>, issu du programme Entreprendre X, est une plateforme de friperie étudiante conçue pour offrir une seconde vie aux articles dont les étudiants n'ont plus besoin. Cette initiative innovante a été imaginée par Laurine Dumain et conceptualisée grâce au soutien et aux ressources du programme Entreprendre X."],
+  services=["Le projet FriPrix, issu du programme Entreprendre X, est une plateforme de friperie étudiante conçue pour offrir une seconde vie aux articles dont les étudiants n'ont plus besoin. Cette initiative innovante a été imaginée par Laurine Dumain et conceptualisée grâce au soutien et aux ressources du programme Entreprendre X."],
   gallery=["2026/08/yes1.jpg","2026/08/20241121_111507.jpg","2026/08/20241119_134500.jpg"],
   posts=["entretien-avec-la-chambre-de-commerce-de-la-cote-de-gaspe"], events=[],
   partners=["2024/04/20240429_161958-150x150.png","2024/04/20240429_203617-150x150.png","2024/04/20240429_203516-150x150.png","2024/04/20240429_203550-150x150.png","2024/04/20240429_161126-150x150.png"]),
