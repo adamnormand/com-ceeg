@@ -170,7 +170,7 @@ def build():
   <g stroke-linecap="round" stroke-width="50" fill="none"><line x1="1208" y1="62" x2="1000" y2="330" stroke="#fff"/><line x1="1268" y1="82" x2="1080" y2="330" stroke="#002c88"/><line x1="1282" y1="150" x2="1130" y2="340" stroke="#fff"/></g>
  </svg>
  <h1>Club<br>Entrepreneur<br>Étudiant<span>Gaspé</span></h1>
- <div class="acee"><p><span>Fier membre du réseau de</span><br>l’Association des clubs<br>d’entrepreneurs étudiants<br>du Québec</p><img src="assets/img/acee-badge.png" alt="ACEE" width="96" height="96"></div>
+ <div class="acee"><p><span>Fier membre du réseau de</span> <br>l’Association des clubs <br>d’entrepreneurs étudiants <br>du Québec</p><img src="assets/img/acee-badge.png" alt="ACEE" width="96" height="96"></div>
  <img class="hero-photo" src="assets/img/hero-etudiants.jpg" alt="Délégation du Club Entrepreneur Étudiant Gaspé au colloque de l’ACEE 2026" width="1367" height="911">
 </div></section>
 <div class="tagline"><div class="wrap">Nous entreprenons pour le futur de la Gaspésie !</div></div>
