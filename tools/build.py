@@ -63,7 +63,7 @@ def page(path, title, body, desc="", active="", og=""):
 <link rel="icon" href="{r}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{r}assets/site.css?v=20261121">
+<link rel="stylesheet" href="{r}assets/site.css?v=20261121b">
 </head>
 <body>
 <div class="topbar"><div class="wrap tb">
@@ -78,7 +78,7 @@ def page(path, title, body, desc="", active="", og=""):
  </div>
 </header>
 <main>
-{body.replace('src="assets/', f'src="{r}assets/').replace('href="assets/', f'href="{r}assets/').replace('href="/', f'href="{r}')}
+{body.replace("url('assets/", f"url('{r}assets/").replace('src="assets/', f'src="{r}assets/').replace('href="assets/', f'href="{r}assets/').replace('href="/', f'href="{r}')}
 </main>
 <footer class="site-footer">
  <div class="wrap cols">
@@ -88,7 +88,7 @@ def page(path, title, body, desc="", active="", og=""):
  </div>
  <div class="wrap legal"><span>© {TODAY.year} Club Entrepreneur Étudiant Gaspé</span><a href="{r}privacy-policy/">Politique de confidentialité</a></div>
 </footer>
-<script src="{r}assets/site.js?v=20261121"></script>
+<script src="{r}assets/site.js?v=20261121b"></script>
 </body>
 </html>
 """
@@ -108,7 +108,13 @@ def redirect(path, target_from_root):
 def hero(title, sub="", image=""):
     bg = f' style="--hero:url(\'{img(image)}\')"' if image else ""
     cls = "page-hero has-img" if image else "page-hero"
-    return f'<section class="{cls}"{bg}><div class="wrap"><h1>{esc(title)}</h1>{f"<p>{sub}</p>" if sub else ""}</div></section>'
+    return f'<section class="{cls}"{bg}><div class="wrap"><p class="ph-kicker">Club Entrepreneur Étudiant Gaspé</p><h1>{esc(title)}</h1>{f"<p>{sub}</p>" if sub else ""}</div></section>'
+
+# Banner photos for programme pages (photos, not posters, so the heading stays readable)
+PROG_BANNER = {"pex":"2026/08/20241121_111507.jpg","festif":"2024/04/20231104_205707-min-scaled.jpg",
+ "cantine":"2024/04/20231103_150215-min-scaled.jpg","boutique":"2024/04/20231103_145936-min-scaled.jpg",
+ "pef":"2026/08/20241119_134500.jpg","pdp":"2024/04/20231104_081107-min-scaled.jpg",
+ "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"2024/04/IMG_2760.jpg"}
 
 POSTS_BY = {p[0]: p for p in POSTS}
 
@@ -191,13 +197,13 @@ def build():
 
     # --- programmes
     cards = "".join(f'<a class="card" href="/programmes/{p["slug"]}/"><img src="{img(p["card"])}" alt="" loading="lazy"><div class="card-body"><h3>{esc(p["title"])}</h3><p>{PROGRAMME_BLURB[p["slug"]]}</p></div></a>' for p in PROGRAMMES)
-    body = hero("Programmes", PROGRAMMES_INTRO) + f'<section><div class="wrap"><h2>Découvrez-les!</h2><div class="cards">{cards}</div></div></section>'
+    body = hero("Programmes", PROGRAMMES_INTRO, "2024/04/20231103_153043-min-scaled.jpg") + f'<section><div class="wrap"><h2>Découvrez-les!</h2><div class="cards">{cards}</div></div></section>'
     page("programmes/", "Programmes", body, desc=PROGRAMMES_INTRO, active="programmes/")
 
     ev_by = {}
     for e in EVENTS: ev_by.setdefault(e[0], []).append(e)
     for p in PROGRAMMES:
-        parts = [hero(p["title"], p["intro"], p["card"])]
+        parts = [hero(p["title"], p["intro"], PROG_BANNER.get(p["slug"], p["card"]))]
         parts.append(f'<section><div class="wrap narrow"><h2>{p["services_h"]}</h2>{"".join(f"<p>{s}</p>" for s in p["services"])}</div></section>')
         if p["gallery"]:
             parts.append(f'<section class="alt"><div class="wrap"><h2>Revivez ces moments avec nous!</h2>{gallery(p["gallery"])}</div></section>')
@@ -214,7 +220,7 @@ def build():
     for s, d, t, feat, body_html, extra in POSTS:
         im = f'<img class="feat" src="{img(feat)}" alt="" loading="lazy">' if feat else ""
         arts.append(f'<article class="post" id="{s}">{im}<div><time>{fdate(d)}</time><h2>{esc(t)}</h2>{body_html}{gallery(extra)}</div></article>')
-    body = hero("Nouvelles", "Les actualités du Club, de 2022 à aujourd’hui. Pour les nouvelles les plus récentes, suivez-nous sur Facebook et Instagram (@ceegim).") + f'<section><div class="wrap narrow posts">{"".join(arts)}</div></section>'
+    body = hero("Nouvelles", "Les actualités du Club, de 2022 à aujourd’hui. Pour les nouvelles les plus récentes, suivez-nous sur Facebook et Instagram (@ceegim).", "2024/04/20231103_152321-min-scaled.jpg") + f'<section><div class="wrap narrow posts">{"".join(arts)}</div></section>'
     page("nouvelles/", "Nouvelles", body, active="nouvelles/")
 
     # --- événements
@@ -222,21 +228,21 @@ def build():
     years = {}
     for e in past: years.setdefault(e[1][:4], []).append(e)
     pastb = "".join(f'<h3 class="year">{y}</h3><div class="events">{"".join(ev_row(e) for e in es)}</div>' for y, es in sorted(years.items(), reverse=True))
-    body = hero("Événements", "Partys, ateliers, colloques et activités de financement organisés par le Club.") + f'''
+    body = hero("Événements", "Partys, ateliers, colloques et activités de financement organisés par le Club.", "2024/04/20231103_190855-min-scaled.jpg") + f'''
 <section><div class="wrap"><h2>À venir</h2><div class="events">{up}</div></div></section>
 <section class="alt"><div class="wrap"><h2>Archives</h2>{pastb}</div></section>'''
     page("evenements/", "Événements", body, active="evenements/")
 
     # --- partenaires
     groups = "".join(f'<h2>{g}</h2>{logos(items)}' for g, items in PARTNERS)
-    body = hero("Partenaires", "Ensemble, nous entreprenons!") + f'<section><div class="wrap"><p class="lead">{PARTNERS_INTRO}</p>{groups}</div></section>'
+    body = hero("Partenaires", "Ensemble, nous entreprenons!", "2024/04/20231104_175832-min-scaled.jpg") + f'<section><div class="wrap"><p class="lead">{PARTNERS_INTRO}</p>{groups}</div></section>'
     page("partenaires/", "Partenaires", body, desc=PARTNERS_INTRO, active="partenaires/")
 
     # --- nous joindre
     grp = "".join(f'<div class="box"><h3>{g}</h3>{"".join(f"<p><a href=\"mailto:{m}\">{m}</a></p>" for m in ms)}</div>' for g, ms in CONTACT_GROUPS)
     icons = "".join(f'<a href="{u}" rel="noopener" aria-label="{n}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">{ICONS[n]}</svg></a>' for n, u in SOCIAL.items())
     social = "".join(f'<a class="btn ghost" href="{u}" rel="noopener">{n}</a> ' for n, u in SOCIAL.items())
-    body = hero("Nous joindre") + f'''<section><div class="wrap"><p class="lead">{CONTACT_INTRO}</p>
+    body = hero("Nous joindre", "", "2024/04/20231103_150914-min-scaled.jpg") + f'''<section><div class="wrap"><p class="lead">{CONTACT_INTRO}</p>
 <div class="boxes"><div class="box"><h3>Locaux</h3><p>{CONTACT_LOCAL}</p></div>
 <div class="box"><h3>Coordonnées</h3><p><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></p><p><a href="tel:+15142223064">{CONTACT_PHONE}</a></p></div>
 <div class="box"><h3>Social</h3><p>@ceegim sur toutes les plateformes</p><p>{social}</p></div></div>
@@ -244,11 +250,11 @@ def build():
     page("nous-joindre/", "Nous joindre", body, desc=CONTACT_INTRO, active="nous-joindre/")
 
     # --- gala, beach party, privacy
-    body = hero("Gala du mérite éducatif 2025") + f'<section><div class="wrap narrow center"><img class="gala-logo" src="{img(GALA_LOGO)}" alt="Gala des finissants 2025"><p class="lead">Le Club Entrepreneur Étudiant Gaspé souligne la réussite des finissants. Voir aussi <a href="/nouvelles/#gala-finissant-2024">le Gala finissant 2024</a>.</p></div></section>'
+    body = hero("Gala du mérite éducatif 2025", "", "2024/04/20231104_205653-min-scaled.jpg") + f'<section><div class="wrap narrow center"><img class="gala-logo" src="{img(GALA_LOGO)}" alt="Gala des finissants 2025"><p class="lead">Le Club Entrepreneur Étudiant Gaspé souligne la réussite des finissants. Voir aussi <a href="/nouvelles/#gala-finissant-2024">le Gala finissant 2024</a>.</p></div></section>'
     page("gala/", "Gala des finissants 2025", body)
-    body = hero("Beach Party 2024 – Fin de session") + f'<section><div class="wrap center"><img class="rounded" src="{img(BEACH_PARTY_BANNER)}" alt="Beach Party 2024" loading="lazy"><p><a class="btn" href="/evenements/#16523-2024-05-04">Voir l’événement</a></p></div></section>'
+    body = hero("Beach Party 2024 – Fin de session", "", "2024/04/20231104_205646-min-scaled.jpg") + f'<section><div class="wrap center"><img class="rounded" src="{img(BEACH_PARTY_BANNER)}" alt="Beach Party 2024" loading="lazy"><p><a class="btn" href="/evenements/#16523-2024-05-04">Voir l’événement</a></p></div></section>'
     page("beach-party-2023-fin-de-session/", "Beach Party 2024 – Fin de session", body)
-    body = hero("Politique de confidentialité") + f'''<section><div class="wrap narrow">
+    body = hero("Politique de confidentialité", "", "2024/04/20231103_150524-min-scaled.jpg") + f'''<section><div class="wrap narrow">
 <p>Ce site est un site statique hébergé sur GitHub Pages. Il ne comporte ni comptes utilisateurs, ni formulaires, ni commentaires, et le Club Entrepreneur Étudiant Gaspé n’y recueille aucune donnée personnelle.</p>
 <h2>Contenu externe</h2><p>Les pages chargent les polices Google Fonts. Les liens vers Facebook, Instagram, LinkedIn ou Zeffy vous amènent sur ces plateformes, qui appliquent leurs propres politiques de confidentialité.</p>
 <h2>Hébergement</h2><p>GitHub, l’hébergeur, peut conserver des journaux techniques (comme l’adresse IP) pour des raisons de sécurité, selon sa propre politique.</p>
@@ -256,7 +262,7 @@ def build():
     page("privacy-policy/", "Politique de confidentialité", body)
 
     # --- 404
-    body = hero("Page introuvable", "La page que vous cherchez a été déplacée lors de la migration du site.") + '<section><div class="wrap center"><p><a class="btn" href="/">Accueil</a> <a class="btn ghost" href="/nouvelles/">Nouvelles</a> <a class="btn ghost" href="/evenements/">Événements</a></p></div></section>'
+    body = hero("Page introuvable", "La page que vous cherchez a été déplacée lors de la migration du site.", "2024/04/20231103_150524-min-scaled.jpg") + '<section><div class="wrap center"><p><a class="btn" href="/">Accueil</a> <a class="btn ghost" href="/nouvelles/">Nouvelles</a> <a class="btn ghost" href="/evenements/">Événements</a></p></div></section>'
     page("404/", "Page introuvable", body)
     os.replace(os.path.join(OUT, "404", "index.html"), os.path.join(OUT, "404.html")); os.rmdir(os.path.join(OUT, "404"))
     # 404.html lives at root: fix relative prefix (it was built one level deep). Use absolute-root-safe rewrite later.

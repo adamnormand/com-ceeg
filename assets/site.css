@@ -78,10 +78,16 @@ nav a:hover,nav a.active{color:var(--navy)}
 .stack{display:grid;gap:16px}.stack img{border-radius:var(--r);width:100%;aspect-ratio:4/3;object-fit:cover}
 
 /* page hero */
-.page-hero{background:var(--navy);color:#fff;padding:clamp(56px,8vw,110px) 0}
-.page-hero h1{color:#fff}
-.page-hero p{max-width:70ch;font-size:1.08rem;opacity:.95;margin:0}
-.page-hero.has-img{background:linear-gradient(90deg,rgba(0,32,92,.92),rgba(0,48,135,.7)),var(--hero) center/cover no-repeat}
+/* inner-page banners: navy, faded photo, diagonal shapes echoing the home banner */
+.page-hero{position:relative;overflow:hidden;isolation:isolate;background:var(--navy);color:#fff;padding:clamp(64px,9vw,120px) 0 clamp(56px,8vw,100px)}
+.page-hero.has-img{background:linear-gradient(100deg,rgba(0,32,92,.96) 0%,rgba(0,44,136,.88) 45%,rgba(0,44,136,.55) 100%),var(--hero) center 35%/cover no-repeat}
+.page-hero:before{content:"";position:absolute;z-index:-1;top:-10%;right:16%;width:min(180px,14vw);height:130%;background:rgba(255,255,255,.10);transform:skewX(-30deg)}
+.page-hero:after{content:"";position:absolute;z-index:-1;top:-10%;right:calc(16% - min(70px,6vw));width:min(26px,2.4vw);height:130%;background:var(--aqua);transform:skewX(-30deg);opacity:.9}
+.page-hero .wrap{position:relative}
+.page-hero .wrap:after{content:"";display:block;width:72px;height:6px;border-radius:3px;background:var(--aqua);margin-top:1.6rem}
+.ph-kicker{font:600 .78rem Poppins,sans-serif!important;text-transform:uppercase;letter-spacing:.14em;color:var(--aqua);opacity:1!important;margin:0 0 .8rem!important}
+.page-hero h1{color:#fff;font:800 clamp(2.2rem,5vw,3.6rem)/.95 "League Spartan",Poppins,sans-serif;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:.4em}
+.page-hero p{max-width:62ch;font-size:1.08rem;opacity:.95;margin:0}
 
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;margin:1.5rem 0 2rem}
