@@ -63,7 +63,7 @@ def page(path, title, body, desc="", active="", og=""):
 <link rel="icon" href="{r}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{r}assets/site.css">
+<link rel="stylesheet" href="{r}assets/site.css?v=20261121">
 </head>
 <body>
 <div class="topbar"><div class="wrap tb">
@@ -88,7 +88,7 @@ def page(path, title, body, desc="", active="", og=""):
  </div>
  <div class="wrap legal"><span>© {TODAY.year} Club Entrepreneur Étudiant Gaspé</span><a href="{r}privacy-policy/">Politique de confidentialité</a></div>
 </footer>
-<script src="{r}assets/site.js"></script>
+<script src="{r}assets/site.js?v=20261121"></script>
 </body>
 </html>
 """
