@@ -28,8 +28,14 @@ def fdate(d):
 
 def ftime(t): return t[11:16].replace(":", " h ") if t[11:16] != "00:00" else ""
 
-NAV = [("Accueil",""),("À propos","a-propos/"),("Programmes","programmes/"),("Nouvelles","nouvelles/"),
+NAV = [("Accueil",""),("Nouvelles","nouvelles/"),("À propos","a-propos/"),("Programmes","programmes/"),
        ("Événements","evenements/"),("Partenaires","partenaires/"),("Nous joindre","nous-joindre/")]
+
+ICONS = {
+ "Facebook": '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.2V10H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.4.2-.5.5-.5z"/>',
+ "Instagram": '<path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0zM12 3c-2.4 0-2.7 0-3.7.1C5.4 3.2 3.2 5.4 3.1 8.3 3 9.3 3 9.6 3 12s0 2.7.1 3.7c.1 2.9 2.3 5.1 5.2 5.2 1 .1 1.3.1 3.7.1s2.7 0 3.7-.1c2.9-.1 5.1-2.3 5.2-5.2.1-1 .1-1.3.1-3.7s0-2.7-.1-3.7c-.1-2.9-2.3-5.1-5.2-5.2C14.7 3 14.4 3 12 3zm0 1.8c2.4 0 2.6 0 3.6.1 2 .1 3.4 1.5 3.5 3.5.1.9.1 1.2.1 3.6s0 2.7-.1 3.6c-.1 2-1.5 3.4-3.5 3.5-.9.1-1.2.1-3.6.1s-2.7 0-3.6-.1c-2-.1-3.4-1.5-3.5-3.5-.1-.9-.1-1.2-.1-3.6s0-2.7.1-3.6c.1-2 1.5-3.4 3.5-3.5.9-.1 1.2-.1 3.6-.1z"/>',
+ "LinkedIn": '<path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 9h4v12H3zm6 0h3.8v1.7c.6-1 1.9-2 3.9-2 4 0 4.3 2.6 4.3 6V21h-4v-5.6c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21H9z"/>',
+}
 
 def page(path, title, body, desc="", active="", og=""):
     depth = path.count("/")
@@ -42,6 +48,7 @@ def page(path, title, body, desc="", active="", og=""):
             nav.append(f'<li class="has-sub"><a href="{r}{href}"{cls}>{label}</a><ul class="sub">{sub}</ul></li>')
         else:
             nav.append(f'<li><a href="{r}{href}"{cls}>{label}</a></li>')
+    icons = "".join(f'<a href="{u}" rel="noopener" aria-label="{n}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">{ICONS[n]}</svg></a>' for n, u in SOCIAL.items())
     social = "".join(f'<a href="{u}" rel="noopener">{n}</a>' for n, u in SOCIAL.items())
     full_title = f"{title} – Club Entrepreneur Étudiant Gaspé" if title != "Accueil" else "Club Entrepreneur Étudiant Gaspé"
     doc = f"""<!DOCTYPE html>
@@ -55,10 +62,14 @@ def page(path, title, body, desc="", active="", og=""):
 {f'<meta property="og:image" content="{r}{og}">' if og else ''}
 <link rel="icon" href="{r}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{r}assets/site.css">
 </head>
 <body>
+<div class="topbar"><div class="wrap tb">
+ <details class="network"><summary>Réseau CEEGIM</summary><ul>{''.join(f'<li><a href="{u if u.startswith("http") else r}">{esc(n)}</a></li>' for n, u in NETWORK)}</ul></details>
+ <p class="tb-social">{icons}</p>
+</div></div>
 <header class="site-header">
  <div class="wrap bar">
   <a class="brand" href="{r}"><img src="{r}{img(LOGO)}" alt="Club Entrepreneur Étudiant Gaspé" width="190" height="107"></a>
@@ -146,11 +157,15 @@ def build():
     if nxt:
         nxt_html = f'<section class="next"><div class="wrap"><h2>Prochain événement</h2>{ev_row(nxt)}</div></section>'
     progs = "".join(f'<a class="card" href="/programmes/{p["slug"]}/"><img src="{img(p["card"])}" alt="" loading="lazy"><div class="card-body"><h3>{esc(p["title"])}</h3><p>{PROGRAMME_BLURB[p["slug"]]}</p></div></a>' for p in PROGRAMMES)
-    body = f'''<section class="home-hero"><div class="wrap grid2">
- <div><p class="kicker">Gaspé · Gaspésie</p><h1>Club<br>Entrepreneur<br>Étudiant <span>Gaspé</span></h1>
- <p class="badge">Fier membre du réseau de l’Association des clubs d’entrepreneurs étudiants du Québec (ACEE)</p>
- <p><a class="btn" href="/programmes/">Nos programmes</a> <a class="btn ghost" href="/nous-joindre/">Nous joindre</a></p></div>
- <div><img class="hero-photo" src="{img(HOME_HERO_IMG)}" alt="Membres du Club Entrepreneur Étudiant Gaspé"></div>
+    body = f'''<section class="home-hero"><div class="hero-box">
+ <svg class="hero-art" viewBox="0 0 1392 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <polygon fill="#fff" points="128,27 345,-6 541,300 305,300"/>
+  <polygon fill="#002c88" points="95,207 212,151 306,300 160,300"/>
+  <g stroke-linecap="round" stroke-width="50" fill="none"><line x1="1208" y1="62" x2="1000" y2="330" stroke="#fff"/><line x1="1268" y1="82" x2="1080" y2="330" stroke="#002c88"/><line x1="1282" y1="150" x2="1130" y2="340" stroke="#fff"/></g>
+ </svg>
+ <h1>Club<br>Entrepreneur<br>Étudiant<span>Gaspé</span></h1>
+ <div class="acee"><p><span>Fier membre du réseau de</span><br>l’Association des clubs<br>d’entrepreneurs étudiants<br>du Québec</p><img src="assets/img/acee-badge.png" alt="ACEE" width="96" height="96"></div>
+ <img class="hero-photo" src="assets/img/hero-etudiants.jpg" alt="Membres du Club Entrepreneur Étudiant Gaspé au colloque de l’ACEE" width="1400" height="933">
 </div></section>
 <div class="tagline"><div class="wrap">Nous entreprenons pour le futur de la Gaspésie !</div></div>
 {nxt_html}
@@ -162,7 +177,7 @@ def build():
 <section class="alt"><div class="wrap"><h2>Notre impact</h2><p class="lead">{HOME_IMPACT}</p><div class="cards">{progs}</div></div></section>
 <section><div class="wrap"><h2>Nouvelles</h2><p class="lead">Le Club Entrepreneur Étudiant de Gaspé vous invite à découvrir ses dernières actualités.</p>
 <div class="cards">{"".join(post_card(p[0]) for p in POSTS[:3])}</div><p><a class="btn" href="/nouvelles/">Toutes les nouvelles</a></p></div></section>'''
-    page("", "Accueil", body, og=img(HOME_HERO_IMG))
+    page("", "Accueil", body, og="assets/img/hero-etudiants.jpg")
 
     # --- à propos
     mem = "".join(f'<figure class="person"><img src="{img(i)}" alt="{esc(n)}" loading="lazy"><figcaption>{esc(n)}</figcaption></figure>' for n, i in MEMBERS)
@@ -219,6 +234,7 @@ def build():
 
     # --- nous joindre
     grp = "".join(f'<div class="box"><h3>{g}</h3>{"".join(f"<p><a href=\"mailto:{m}\">{m}</a></p>" for m in ms)}</div>' for g, ms in CONTACT_GROUPS)
+    icons = "".join(f'<a href="{u}" rel="noopener" aria-label="{n}"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">{ICONS[n]}</svg></a>' for n, u in SOCIAL.items())
     social = "".join(f'<a class="btn ghost" href="{u}" rel="noopener">{n}</a> ' for n, u in SOCIAL.items())
     body = hero("Nous joindre") + f'''<section><div class="wrap"><p class="lead">{CONTACT_INTRO}</p>
 <div class="boxes"><div class="box"><h3>Locaux</h3><p>{CONTACT_LOCAL}</p></div>

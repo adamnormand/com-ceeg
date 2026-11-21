@@ -8,12 +8,14 @@ SOCIAL = {
     "LinkedIn": "https://www.linkedin.com/company/ceegim/",
 }
 LOGO = "2024/04/20240426_094536.png"
+# Top bar network menu (formerly "Réseau EntreprendreX", now CEEGIM)
+NETWORK = [("Club Entrepreneur Étudiant Gaspé", "/"), ("Friprix étudiant Gaspé", "https://friprix.ceegim.com/")]
 
 FOOTER_TEXT = ("Le Club Entrepreneur Étudiant de Gaspé est un organisme à but non lucratif "
                "qui opère des programmes favorisant l’entrepreneuriat sur le territoire de la MRC de la Côte-de-Gaspé.")
 ADDRESS = "96, rue Jacques Cartier, Gaspé (Québec) G4X 2S8"
 PHONE = "514-222-3064"
-EMAIL = "info@entreprendrex.com"
+EMAIL = "info@ceegim.ca"
 
 # ---------------------------------------------------------------- programmes
 # key, slug, title, intro, services heading, services paragraphs, gallery, posts, events, partners, card image

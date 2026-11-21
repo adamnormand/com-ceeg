@@ -30,6 +30,8 @@ Removed by decision: the WooCommerce shop (Boutique), the Jetpack contact form (
 
 ## Editing
 
+**Home banner photo.** The student photo in the home banner is its own file: `assets/img/hero-etudiants.jpg`. To change it, upload a new photo with that exact name (GitHub → `assets/img` → Add file → Upload files). Any landscape or square photo works; it is cropped to a circle automatically. If the faces sit off-centre, adjust `object-position` on `.hero-photo` in `assets/site.css` (first number = left/right, in %).
+
 Either edit the HTML directly, or (recommended, keeps header/footer in sync) edit `tools/content.py` and run `python3 tools/build.py`. New events go in `EVENTS`; the home page shows the next upcoming one, computed at build time (`TODAY` in `build.py`).
 
 ## Moving to the ceegim.com domain later
