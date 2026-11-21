@@ -60,7 +60,7 @@ def page(path, title, body, desc="", active="", og=""):
 <meta name="description" content="{esc(desc or FOOTER_TEXT)}">
 <meta property="og:title" content="{esc(full_title)}">
 {f'<meta property="og:image" content="{r}{og}">' if og else ''}
-<link rel="icon" href="{r}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{r}favicon.ico" sizes="any"><link rel="icon" href="{r}favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="{r}favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="{r}apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{r}assets/site.css?v=20261121b">
@@ -114,7 +114,7 @@ def hero(title, sub="", image=""):
 PROG_BANNER = {"pex":"2026/08/20241121_111507.jpg","festif":"2024/04/20231104_205707-min-scaled.jpg",
  "cantine":"2024/04/20231103_150215-min-scaled.jpg","boutique":"2024/04/20231103_145936-min-scaled.jpg",
  "pef":"2026/08/20241119_134500.jpg","pdp":"2024/04/20231104_081107-min-scaled.jpg",
- "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"assets/img/clq-2026-groupe.jpg"}  # clq = CLQ 2026 group photo
+ "simulations":"2024/04/20231104_183218-min-scaled.jpg","clq":"2024/04/IMG_2756.jpg"}  # clq = group photo at the official ACEE backdrop
 
 POSTS_BY = {p[0]: p for p in POSTS}
 
@@ -150,7 +150,7 @@ def logos(items):
 def build():
     if os.path.isdir(OUT):
         for name in os.listdir(OUT):
-            if name in (".git", "assets", ".github", "README.md", "CNAME", ".nojekyll", "favicon.svg", "tools"): continue
+            if name in (".git", "assets", ".github", "README.md", "CNAME", ".nojekyll", "favicon.ico", "favicon-32.png", "favicon-192.png", "apple-touch-icon.png", "tools"): continue
             p = os.path.join(OUT, name)
             shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
 

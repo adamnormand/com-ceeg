@@ -18,7 +18,8 @@ Static, dependency-free version of the CEEG website, migrated from the WordPress
 | `assets/img/` | Images; `manifest.tsv` maps each one to its original WordPress URL |
 | `tools/content.py`, `tools/build.py` | Source content and generator: edit `content.py`, run `python3 tools/build.py`, commit |
 | `.github/workflows/fetch-images.yml` | One-time import of the images from ceegim.com (see below) |
-| `favicon.svg`, `.nojekyll` | Site icon; serve files as-is |
+| `favicon.ico`, `favicon-*.png`, `apple-touch-icon.png` | Site icon (the logo’s “C” mark) |
+| `.nojekyll` | Serve files as-is |
 
 Removed by decision: the WooCommerce shop (Boutique), the Jetpack contact form (replaced by mailto/phone links), the placeholder post "À déterminer".
 
