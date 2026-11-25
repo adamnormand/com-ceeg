@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content import *
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TODAY = datetime.date(2026, 11, 20)
+TODAY = datetime.date(2026, 11, 25)
 SRC = "https://ceegim.com/wp-content/uploads/"
 MANIFEST = {}
 
