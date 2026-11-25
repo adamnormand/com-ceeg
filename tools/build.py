@@ -136,7 +136,8 @@ def ev_row(e, full=True):
     meta = " · ".join(x for x in [ev_when(e), venue, cost] if x)
     link = f'<p><a class="btn small" href="{url}" rel="noopener">{"Billets" if "zeffy" in url else "Détails"}</a></p>' if url and full else ""
     anchor = s + "-" + start[:10]
-    return (f'<article class="event" id="{anchor}"><img src="{img(image)}" alt="" loading="lazy">'
+    return (f'<article class="event" id="{anchor}">'
+            + (f'<a href="{img(image)}" target="_blank" rel="noopener" aria-label="Voir l’affiche : {esc(title)}"><img src="{img(image)}" alt="" loading="lazy"></a>' if image else '<div></div>') +
             f'<div><h3>{esc(title)}</h3><p class="meta">{esc(meta)}</p>{desc if full else ""}{link}</div></article>')
 
 def gallery(items):
